@@ -1,22 +1,30 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
 
-// Landing Page pública para usuarios invitados (guests)
-Route::get('/', function () {
-    return view('landingpage');
-})->name('landing');
-
-// Rutas de autenticación
-Auth::routes();
-
-// Dashboard protegido con middleware 'auth'
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware('auth')->name('dashboard');
-
-// Redirección de /home a /dashboard
+// Rutas de navegación principal (Actividad 11)
 Route::get('/home', function () {
-    return redirect()->route('dashboard');
+    return view('home');
+});
+
+Route::get('/photos', function () {
+    return view('photos');
+});
+
+Route::get('/contact', function () {
+    return view('contact');
+});
+
+// Ruta de prueba con condicionales y variables de Blade
+Route::get('greeting', function () {
+    $records = ['Record 1', 'Record 2'];
+    return view('welcome', [
+        'name' => 'Ricardo Fuentes Monter',
+        'records' => $records
+    ]);
+});
+
+// Ruta raíz que redirige al home
+Route::get('/', function () {
+    return redirect('/home');
 });
